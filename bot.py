@@ -1,12 +1,19 @@
 import os
 
 from dotenv import load_dotenv
-from interactions import Client, Extension, Intents, listen
+from interactions import Activity, ActivityType, Client, Intents, PartialEmoji, listen
 
 load_dotenv()
-TOKEN = os.getenv("DISCORD_BOT_TOKEN")
+TOKEN = os.getenv("DISCORD_BOT_TOKEN_TEST")
 
-bot = Client(intents=Intents.ALL | Intents.MESSAGE_CONTENT)
+bot = Client(
+    intents=Intents.ALL | Intents.MESSAGE_CONTENT,
+    activity=Activity(
+        "with spaghetti code",
+        type=ActivityType.PLAYING,
+        details="If I do something wrong, please tell me (LCKYN).\nPlease don't send DM to me",
+    ),
+)
 
 
 @listen()

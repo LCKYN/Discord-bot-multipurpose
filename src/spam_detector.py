@@ -17,7 +17,8 @@ class SpamDetector:
             self.user_messages[user_id].append({"message": message, "timestamp": timestamp, "channel_id": channel_id})
             self.cleanup_old_messages(user_id)
             if self.check_spam(user_id, channel_id):
-                return {"user_id": user_id, "channel_id": channel_id, "message": message}
+                all_messages = "\n".join([f"<#{i["channel_id"]}>: {i["message"]}" for i in self.user_messages[user_id]])
+                return {"user_id": user_id, "channel_id": channel_id, "message": message, "all_messages": all_messages}
         return None
 
     def cleanup_old_messages(self, user_id):
