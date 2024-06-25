@@ -40,13 +40,14 @@ class SpamDetectorWithLink(Extension):
 
     async def ban_spammer(self, user_id, channel_id, content, all_messages):
         channel = await self.client.fetch_channel(channel_id)
-        await channel.send(
-            embed=Embed(color=0xFF0000)
+        embed = (
+            Embed(color=0xFF0000)
             .add_field(name="Ban user", value=f"ส่งไรจ๊ะ <@{user_id}> แตก!")
             .add_field(name="Ban reason", value=all_messages)
             .add_image(image="https://media.tenor.com/SJ2HvoNKCwkAAAAi/pepe-the-frog-pepe.gif")
             .add_field(name="Owner", value=f"<@{self.bot.owner.id}>")
         )
+
         guild = await self.client.fetch_guild(channel.guild.id)
         await guild.ban(
             user_id,
@@ -54,6 +55,9 @@ class SpamDetectorWithLink(Extension):
             delete_message_seconds=60 * 30,
             reason=f"Spamming in channel {channel_id} \nwith message: {content}",
         )
+
+        await channel.send(embed=embed)
+        await self.bot.owner.send(embed=embed)
 
 
 def setup(bot):
