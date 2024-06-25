@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from interactions import Activity, ActivityType, Client, Intents, PartialEmoji, listen
+from interactions import Activity, ActivityType, Client, Intents, listen
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN_TEST")
@@ -9,9 +9,8 @@ TOKEN = os.getenv("DISCORD_BOT_TOKEN_TEST")
 bot = Client(
     intents=Intents.ALL | Intents.MESSAGE_CONTENT,
     activity=Activity(
-        "with spaghetti code",
-        type=ActivityType.PLAYING,
-        details="If I do something wrong, please tell me (LCKYN).\nPlease don't send DM to me",
+        name="พวกกำลังจะโดนแบน!",
+        type=ActivityType.WATCHING,
     ),
 )
 
